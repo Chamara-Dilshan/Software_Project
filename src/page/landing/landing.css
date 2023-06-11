@@ -1,0 +1,73 @@
+.homeContainer{
+    margin-top: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+  
+  .homeTitle3 {
+    width: 750px; /* Initial width */
+    white-space: nowrap; /* Prevent line breaks */
+    overflow: hidden; /* Hide overflowing text */
+    text-overflow: ellipsis; /* Show ellipsis (...) when text overflows */
+    transition: width 2s ease; 
+    font-size: 25px;/* Smooth transition for width change */
+    
+  }
+  .homeTitle2 {
+    width: 750px; /* Initial width */
+    white-space: nowrap; /* Prevent line breaks */
+    overflow: hidden; /* Hide overflowing text */
+    text-overflow: ellipsis; /* Show ellipsis (...) when text overflows */
+    transition: width 2s ease; 
+    font-size: 25px;/* Smooth transition for width change */
+    
+  }
+  .homeTitle1 {
+    width: 750px; /* Initial width */
+    white-space: nowrap; /* Prevent line breaks */
+    overflow: hidden; /* Hide overflowing text */
+    text-overflow: ellipsis; /* Show ellipsis (...) when text overflows */
+    transition: width 2s ease; 
+    font-size: 25px;/* Smooth transition for width change */
+    
+  }
+  
+  .expandWidth1 {
+    width: 75%; /* Set the width to 100% on mouse hover */
+  }
+  .expandWidth2 {
+    width: 75%; /* Set the width to 100% on mouse hover */
+  }
+  .expandWidth3 {
+    width: 75%; /* Set the width to 100% on mouse hover */
+  }
+  .loadBtn {
+    gap: 40px;
+    padding: 10px;
+    cursor: pointer;
+  }
+
+ 
+  .loadBtn {
+    background-color: #00D0D0; /* Default button color */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px; /* Rounded border */
+    transition: transform 0.5s ease;
+    position: relative; /* Add position relative for the frame effect */
+    z-index: 1; /* Set z-index to bring the frame above other elements */
+  }
+  
+  .loadBtn:before {
+  
+    border-radius: 25px; /* Rounded border */
+    z-index: -1; /* Set z-index to position the frame below the button */
+  }
+  
+  .loadBtn:hover {
+    background-color: #FC9702; /* Color on hover */
+    transform: scale(1.2); /* Scale the button on hover */
+  }

@@ -1,0 +1,115 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.custom-bg {
+  background-color: #FFFFFF;
+} 
+
+.text-color {
+  color: ;
+}
+.text-color3{
+  color: rgb(63, 63, 63);
+}
+.text-color5 {
+  color:white;
+}
+
+
+.text-color1 {
+  color:black;
+}
+
+.border-color {
+  border-color: #508991;
+  border-width: 5px;
+  
+}
+
+.custom-bg-text {
+  color:black;
+}
+
+.bg-color {
+  background-color: #FC9702;
+}
+
+.rounded-card {
+  padding: 1.5em .5em .5em;
+  border-radius: 2em;
+  box-shadow: 0 5px 10px rgba(0,0,0,.2);
+}
+
+.form-card {
+  padding: .2em .2em .2em;
+  border-radius: 1em;
+  box-shadow: 0 5px 10px rgba(0,0,0,.2);
+}
+
+.card {
+  transition: transform 0.2s ease;
+}
+
+.card:hover .product-card  {
+  transform: scale(1.02);
+}
+
+.featured{
+  width: 100%;
+  max-width: 1024px;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  z-index: 1;
+}
+
+.featuredItem{
+  position: relative;
+  color:white;
+  border-radius: 10px;
+  overflow: hidden;
+  height: 250px;
+  flex:1
+}
+
+.featuredImg{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.featuredTitles{
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+}
+
+.link {
+  color: #FFF;
+}
+.link:hover {
+   color: #FC9702;
+}
+
+.payment
+{
+  margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+
