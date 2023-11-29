@@ -4,7 +4,9 @@
     flex-direction: column;
     align-items: center;
     gap: 15px;
+  
   }
+
   
   .homeTitle3 {
     width: 750px; /* Initial width */
@@ -13,7 +15,7 @@
     text-overflow: ellipsis; /* Show ellipsis (...) when text overflows */
     transition: width 2s ease; 
     font-size: 25px;/* Smooth transition for width change */
-    
+    cursor: default;
   }
   .homeTitle2 {
     width: 750px; /* Initial width */
@@ -22,7 +24,7 @@
     text-overflow: ellipsis; /* Show ellipsis (...) when text overflows */
     transition: width 2s ease; 
     font-size: 25px;/* Smooth transition for width change */
-    
+    cursor: default;
   }
   .homeTitle1 {
     width: 750px; /* Initial width */
@@ -31,7 +33,7 @@
     text-overflow: ellipsis; /* Show ellipsis (...) when text overflows */
     transition: width 2s ease; 
     font-size: 25px;/* Smooth transition for width change */
-    
+    cursor: default;
   }
   
   .expandWidth1 {

@@ -21,13 +21,15 @@ import Payment from "./Payment/Payment";
 import ListEmployeeComponent from "./page/AdminDashboard/ListEmployeeComponent";
 import ViewEmployeeComponent from "./page/AdminDashboard/ViewEmployeeComponent";
 import CreateEmployeeComponent from "./page/AdminDashboard/CreateEmployeeComponent";
-import Cab from "./Cab/Cab";
 import OTP from "./UserComponent/OTP";
 import CurrencyConverter from "./Payment/CurrencyConverter"
 import Test from "./Payment/test";
 import AnotherComponent from "./Payment/AnotherComponent";
-
 import { useState } from "react";
+import ForgetPassword from "../src/page/ForgetPassword/ForgetPassword";
+
+
+
 
 function App() {
   const [totalAmount, setTotalAmount] = useState(0);
@@ -42,9 +44,11 @@ function App() {
         <Route path="/home" element={<HomePage />} />
         <Route path="/pay" element={<Payment total={totalAmount} />} />
         <Route path="/OTP" element={<OTP />} />
-        <Route path="/Cab" element={<Cab />} />
-        <Route path="/currencyC" element={<CurrencyConverter />} />
+  
+       
 
+        <Route path="/currencyC" element={<CurrencyConverter />} />
+        <Route path="/forgetP" element={<ForgetPassword />} />
 
         <Route path="/home/all/hotel/location" element={<HomePage />} />
         <Route

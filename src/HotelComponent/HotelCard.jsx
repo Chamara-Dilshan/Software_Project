@@ -5,18 +5,38 @@ import payment from "../Payment/Payment";
 
 const HotelCard = (hotel) => {
   return (
-    <div className="col">
+    <div className="col"  style={{
+     
+      cursor: "default"
+    }}>
       <div class="card border-color rounded-card card-hover product-card custom-bg h-100">
-        <img
-          src={"http://localhost:8080/api/hotel/" + hotel.item.image2}
-          class="card-img-top rounded mx-auto d-block m-2"
-          alt="img"
-          style={{
-            maxHeight: "270px",
-            maxWidth: "100%",
-            width: "auto",
-          }}
-        />
+
+      <Link
+              to={`/hotel/${hotel.item.id}/location/${hotel.item.location.id}`}
+              className=""
+            >
+              
+           
+      <img
+    src={"http://localhost:8080/api/hotel/" + hotel.item.image2}
+    className="card-img-top rounded mx-auto d-block m-2"
+    alt="img"
+    style={{
+      maxHeight: "270px",
+      maxWidth: "100%",
+      width: "auto",
+      border: "3px solid  #264653", // Set the border color and size
+      borderRadius: "10px", // Set the border radius
+      transition: "transform 0.3s",
+  
+    }}
+    onMouseOver={(e) => {
+      e.target.style.transform = "scale(1.1)";
+    }}
+    onMouseOut={(e) => {
+      e.target.style.transform = "scale(1)";
+    }}
+  />  </Link>
 
         {/* <HotelCarousel
       item={{
@@ -50,7 +70,20 @@ const HotelCard = (hotel) => {
           <div className="text-center text-color3">
             <p>
               <span>
-                <h4>Price Per Day :Lkr;{hotel.item.pricePerDay}</h4>
+              <h4>
+  Price Per Day{" "}
+  <span
+    style={{
+      backgroundColor: "#00D0D0",
+      border: "1px solid #264653",
+      borderRadius: "5px",
+      cursor: "default"
+    }}
+  >
+    Lkr: {hotel.item.pricePerDay} /=
+  </span>
+</h4>
+
               </span>
             </p>
           </div>

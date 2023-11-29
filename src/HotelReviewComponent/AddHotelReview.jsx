@@ -1,17 +1,18 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import HotelCarousel from "../HotelComponent/HotelCarousel";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import HotelCard from "../HotelComponent/HotelCard";
+import "./AddHotelReview.css";
 
 const AddHotelReview = () => {
-  let user = JSON.parse(sessionStorage.getItem("active-customer"));
+  const user = JSON.parse(sessionStorage.getItem("active-customer"));
 
-  const [userId, setUserId] = useState(user.id);
+  const [userId, setUserId] = useState(user ? user.id : "");
 
-  let { hotelId, locationId } = useParams();
+  const { hotelId, locationId } = useParams();
 
   const [star, setStar] = useState("");
   const [review, setReview] = useState("");
@@ -35,20 +36,18 @@ const AddHotelReview = () => {
     facility: [{ id: "", name: "", description: "" }],
   });
 
-  let navigate = useNavigate();
+  const navigate = useNavigate();
 
   const retrieveHotel = async () => {
     const response = await axios.get(
-      "http://localhost:8080/api/hotel/id?hotelId=" + hotelId
+      `http://localhost:8080/api/hotel/id?hotelId=${hotelId}`
     );
-
     return response.data;
   };
 
   useEffect(() => {
     const getHotel = async () => {
       const retrievedHotel = await retrieveHotel();
-
       setHotel(retrievedHotel.hotel);
     };
 
@@ -64,56 +63,59 @@ const AddHotelReview = () => {
   }, [hotelId]);
 
   const retrieveHotelsByLocation = async () => {
-    console.log("Lets print location id here " + hotel.location.id);
-
     const response = await axios.get(
-      "http://localhost:8080/api/hotel/location?locationId=" + locationId
+      `http://localhost:8080/api/hotel/location?locationId=${locationId}`
     );
-    console.log(response.data);
     return response.data;
   };
 
   const saveHotelReview = (e) => {
-    if (user == null) {
-      e.preventDefault();
-      alert("Please login as Customer for adding your review!!!");
-    } else {
-      e.preventDefault();
-      setUserId(user.id);
-      let data = { userId, hotelId, star, review };
+    e.preventDefault();
 
-      fetch("http://localhost:8080/api/hotel/review/add", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      }).then((result) => {
-        result.json().then((res) => {
-          console.log(res);
-          navigate("/hotel/" + hotel.id + "/location/" + hotel.location.id);
-          console.log(res.responseMessage);
-          toast.warn(res.responseMessage, {
-            position: "top-center",
-            autoClose: 1000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          });
+    if (!user) {
+      alert("Please login as a Customer to add your review!!!");
+      return;
+    }
+
+    if (star === "" || review === "") {
+      alert("Please fill all the required fields.");
+      return;
+    }
+
+    setUserId(user.id);
+    const data = { userId, hotelId, star, review };
+
+    fetch("http://localhost:8080/api/hotel/review/add", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    }).then((result) => {
+      result.json().then((res) => {
+        console.log(res);
+        navigate(`/hotel/${hotel.id}/location/${hotel.location.id}`);
+        console.log(res.responseMessage);
+        toast.warn(res.responseMessage, {
+          position: "top-center",
+          autoClose: 1000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
         });
       });
-    }
+    });
   };
 
   return (
     <div className="container-fluid mb-5">
-      <div class="row">
-        <div class="col-sm-2 mt-2"></div>
-        <div class="col-sm-3 mt-2">
-          <div class="card form-card border-color custom-bg text-color3">
+      <div className="row" style={{ marginLeft: "-100px" }}>
+        <div className="col-sm-2 mt-2"></div>
+        <div className="col-sm-3 mt-2">
+          <div className="image-border1234">
             <HotelCarousel
               item={{
                 image1: hotel.image1,
@@ -124,10 +126,10 @@ const AddHotelReview = () => {
           </div>
         </div>
 
-        <div class="col-sm-5 mt-2">
+        <div className="col-sm-5 mt-2">
           <div
             className="card form-card border-color custom-bg text-color3"
-            style={{ width: "30rem" }}
+            style={{ width: "40rem" }}
           >
             <div className="card-header bg-color text-center custom-bg-text">
               <h5 className="card-title">Add Hotel Review</h5>
@@ -135,7 +137,7 @@ const AddHotelReview = () => {
             <div className="card-body text-color3">
               <form onSubmit={saveHotelReview}>
                 <div className="mb-3">
-                  <label className="form-label">
+                  <label className="form-label" style={{ width: "30rem" }}>
                     <b>Star</b>
                   </label>
 
@@ -162,7 +164,7 @@ const AddHotelReview = () => {
                     className="form-control"
                     id="review"
                     rows="3"
-                    placeholder="enter review.."
+                    placeholder="Enter review..."
                     onChange={(e) => {
                       setReview(e.target.value);
                     }}
@@ -185,7 +187,7 @@ const AddHotelReview = () => {
 
       <div className="row mt-4">
         <div className="col-sm-12">
-          <h2>Other Hotels in {hotel.location.city} Location:</h2>
+          <h2>All Hotels in {hotel.location.city} Location:</h2>
           <div className="row row-cols-1 row-cols-md-4 g-4">
             {hotels.map((h) => {
               return <HotelCard item={h} />;

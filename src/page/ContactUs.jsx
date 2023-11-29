@@ -8,9 +8,9 @@ import Footer from "./Footer";
 const ContactUs = () => {
   return (
     <div className="text-color ms-5 me-5 mr-5 mt-3 text-color3" style={{ border: "none", display: "flex", justifyContent: "center" }}>
-      <div className='container' style={{ border: "none", width: "100%", maxWidth: "1200px" }}>
+      <div className='container' style={{ border: "none", width: "100%", maxWidth: "1200px", cursor: "default" }}>
       <b>
-        <h3>Devloped by "Angular Whiplash" from university of Moratuwa.</h3><br/>
+        <h3>Devloped by "Angular Whiplash" from university of Moratuwa faculty of IT.</h3><br/>
         <div className="fp">
       <div className="fpItem">
         <img
@@ -28,7 +28,7 @@ const ContactUs = () => {
       <img
     src={img2}
     alt=""
-    className="fpImg"
+    className="fpImg" style={{ borderRadius: "10px" }}
   />
   <span className="fpName">Rambukkamage R.D.S.T. </span>
   <div className="fpRating" style={{ fontSize: 14, width: '120px' }}>
@@ -39,7 +39,7 @@ const ContactUs = () => {
         <img
           src={img3}
           alt=""
-          className="fpImg"
+          className="fpImg" style={{ borderRadius: "10px" }}
         />
         <span className="fpName">Pallikonda D.C.P.</span>
         <div className="fpRating" style={{ fontSize: 14 }} >
@@ -47,11 +47,12 @@ const ContactUs = () => {
         </div>
       </div>
       <div className="fpItem">
-        <img
-          src={img4}
-          alt=""
-          className="fpImg"
-        />
+      <img
+  src={img4}
+  alt=""
+  className="fpImg"
+  style={{ borderRadius: "10px", width: "215px", marginLeft: "-8px" }}
+/>
         <span className="fpName">Prince J.B.T.S.</span>
         <div className="fpRating" style={{ fontSize: 14 }} >
           <button>princejbts.20@uom.lk</button>

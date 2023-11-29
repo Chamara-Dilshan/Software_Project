@@ -9,6 +9,7 @@ import Footer from "./Footer";
 
 
 const HomePage = () => {
+ 
   const [hotels, setHotels] = useState([]);
   const { locationId } = useParams();
 
@@ -52,6 +53,7 @@ const HomePage = () => {
 
   return (
     <div className="container-fluid mb-2">
+    
       <Carousel />
       <div className="mt-2 mb-5">
         <div className="row">

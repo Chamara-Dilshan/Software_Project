@@ -17,7 +17,7 @@ const CustomerHeader = () => {
     });
     sessionStorage.removeItem("active-customer");
 
-    navigate("/home");
+    navigate("/");
     window.location.reload(true);
   };
 

@@ -2,9 +2,9 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 
+import '../ForgetPassword/forgetPassword.css'
 
-
-export default function ForgetPassword() {
+export default function ForgetPasswordPage() {
     const [email,setEmail]= useState("");
 
     async function sendPasswordResetEmail(event){
@@ -23,7 +23,7 @@ export default function ForgetPassword() {
     return (
         <div className="text-center m-5-auto">
             <h2>Reset your password</h2>
-            <h5>Enter your email address and we will send you a new password</h5>
+            <h5>Enter your email address and we will send you the password reset link</h5>
             <form action="/login">
                 <p>
                     <label id="reset_pass_lbl">Email address</label><br/>
@@ -42,7 +42,7 @@ export default function ForgetPassword() {
                 </p>
             </form>
             <footer>
-                <p>First time? <Link to="/register">Create an account</Link>.</p>
+                <p>First time? <Link to="/user/customer/register">Create an account</Link>.</p>
                 <p><Link to="/">Back to Homepage</Link>.</p>
             </footer>
         </div>

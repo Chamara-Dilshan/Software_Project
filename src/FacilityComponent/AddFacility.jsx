@@ -6,10 +6,36 @@ const AddFacility = () => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
 
+  const [nameEmpty, setNameEmpty] = useState(false);
+  const [descriptionEmpty, setDescriptionEmpty] = useState(false);
+
   let navigate = useNavigate();
 
   const saveFacility = (e) => {
     e.preventDefault();
+
+    // Check for empty fields
+    if (name === "") {
+      setNameEmpty(true);
+    }
+
+    if (description === "") {
+      setDescriptionEmpty(true);
+    }
+
+    if (name === "" || description === "") {
+      toast.error("Please fill all the required fields", {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      return;
+    }
+
     let data = { name, description };
 
     fetch("http://localhost:8080/api/facility/add", {
@@ -24,20 +50,18 @@ const AddFacility = () => {
         console.log(res);
 
         console.log(res.responseMessage);
-           
 
-              navigate("/home");
-              toast.warn(res.responseMessage, {
-                position: "top-center",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-              });
+        navigate("/home");
+        toast.warn(res.responseMessage, {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
       });
-      
     });
   };
 
@@ -52,18 +76,24 @@ const AddFacility = () => {
             <h5 className="card-title">Add Facility</h5>
           </div>
           <div className="card-body text-color3">
-            <form onSubmit={saveFacility}> 
+            <form onSubmit={saveFacility}>
               <div className="mb-3">
                 <label htmlFor="name" className="form-label">
                   <b>Facility (name)</b>
                 </label>
                 <input
                   type="text"
-                  className="form-control"
+                  className={`form-control ${
+                    nameEmpty ? "empty-field" : ""
+                  }`}
+                  style={{
+                    borderColor: nameEmpty ? "red" : "",
+                  }}
                   id="name"
                   placeholder="enter name.."
                   onChange={(e) => {
                     setName(e.target.value);
+                    setNameEmpty(false);
                   }}
                   value={name}
                 />
@@ -73,18 +103,23 @@ const AddFacility = () => {
                   <b>Facility Description</b>
                 </label>
                 <textarea
-                  className="form-control"
+                  className={`form-control ${
+                    descriptionEmpty ? "empty-field" : ""
+                  }`}
+                  style={{
+                    borderColor: descriptionEmpty ? "red" : "",
+                  }}
                   id="description"
                   rows="3"
                   placeholder="enter description.."
                   onChange={(e) => {
                     setDescription(e.target.value);
+                    setDescriptionEmpty(false);
                   }}
                   value={description}
                 />
               </div>
 
-              
               <input
                 type="submit"
                 className="btn bg-color custom-bg-text"

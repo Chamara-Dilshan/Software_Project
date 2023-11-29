@@ -5,7 +5,7 @@ const HotelCarousel = (hotel) => {
       id="carouselExampleCaptions2"
       className="carousel slide"
       data-bs-ride="false"
-    >
+      style={{ marginBottom: "-325px" }} >
       <div className="carousel-indicators">
         <button
           type="button"
@@ -30,11 +30,12 @@ const HotelCarousel = (hotel) => {
       </div>
       <div className="carousel-inner">
         <div className="carousel-item active">
-          <img
-            src={"http://localhost:8080/api/hotel/" + hotel.item.image1}
-            className="d-block w-100"
-            alt="..."
-          />
+        <img
+  src={"http://localhost:8080/api/hotel/" + hotel.item.image1}
+  className="d-block w-100"
+  alt="..."
+  
+/>
         </div>
         <div className="carousel-item">
           <img

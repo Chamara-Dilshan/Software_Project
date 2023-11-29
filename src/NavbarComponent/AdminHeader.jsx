@@ -20,7 +20,7 @@ const AdminHeader = () => {
     });
     sessionStorage.removeItem("active-admin");
     window.location.reload(true);
-    navigate("/home");
+    navigate("/");
   };
 
   return (

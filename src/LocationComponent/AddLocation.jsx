@@ -6,10 +6,36 @@ const AddLocation = () => {
   const [city, setCity] = useState("");
   const [description, setDescription] = useState("");
 
+  const [cityEmpty, setCityEmpty] = useState(false);
+  const [descriptionEmpty, setDescriptionEmpty] = useState(false);
+
   let navigate = useNavigate();
 
   const saveLocation = (e) => {
     e.preventDefault();
+
+    // Check for empty fields
+    if (city === "") {
+      setCityEmpty(true);
+    }
+
+    if (description === "") {
+      setDescriptionEmpty(true);
+    }
+
+    if (city === "" || description === "") {
+      toast.error("Please fill all the required fields", {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      return;
+    }
+
     let data = { city, description };
 
     fetch("http://localhost:8080/api/location/add", {
@@ -51,7 +77,7 @@ const AddLocation = () => {
           </div>
           <div className="card-body text-color3">
             <form onSubmit={saveLocation}>
-              <div className="mb-3">
+              <div className="mb-3" style={cityEmpty ? { borderColor: "red" } : {}}>
                 <label htmlFor="city" className="form-label">
                   <b>Location(city)</b>
                 </label>
@@ -62,11 +88,13 @@ const AddLocation = () => {
                   placeholder="enter city.."
                   onChange={(e) => {
                     setCity(e.target.value);
+                    setCityEmpty(false);
                   }}
                   value={city}
+                  style={cityEmpty ? { borderColor: "red" } : {}}
                 />
               </div>
-              <div className="mb-3">
+              <div className="mb-3" style={descriptionEmpty ? { borderColor: "red" } : {}}>
                 <label htmlFor="description" className="form-label">
                   <b>Location Description</b>
                 </label>
@@ -77,8 +105,10 @@ const AddLocation = () => {
                   placeholder="enter description.."
                   onChange={(e) => {
                     setDescription(e.target.value);
+                    setDescriptionEmpty(false);
                   }}
                   value={description}
+                  style={descriptionEmpty ? { borderColor: "red" } : {}}
                 />
               </div>
 

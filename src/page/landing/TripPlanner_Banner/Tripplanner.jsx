@@ -9,7 +9,19 @@ const MailList = () => {
       <div className="tripInputContainer">
 
       <Link to="/TripPlanner" className="hostInputContainer"  >
-      <button >Click here to Start</button>
+      <button
+  style={{
+    transition: "transform 0.3s",ontSize: "20px", padding: "10px 20px" }}
+
+  onMouseOver={(e) => {
+    e.target.style.transform = "scale(1.1)";
+  }}
+  onMouseOut={(e) => {
+    e.target.style.transform = "scale(1)";
+  }}
+>
+  Click here to Start
+</button>
 
           </Link>
        

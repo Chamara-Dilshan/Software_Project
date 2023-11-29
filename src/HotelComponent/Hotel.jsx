@@ -10,10 +10,9 @@ import GetHotelReviews from "../HotelReviewComponent/GetHotelReviews";
 import Footer from "../page/Footer";
 import { redirect, Link, useNavigate, useParams } from "react-router-dom";
 import Payment from "../Payment/Payment";
-
+import "./Hotel.css";
 
 const Hotel = (setTotal) => {
-
   const { hotelId, locationId } = useParams();
 
   let user = JSON.parse(sessionStorage.getItem("active-customer"));
@@ -60,10 +59,12 @@ const navigate = useNavigate();
 
   const currency = (e) => {
     navigate("/currencyC");
+    
   };
 
   const handleBookingInput = (e) => {
     setBooking({ ...booking, [e.target.name]: e.target.value });
+    
   };
   
   const retrieveHotel = async () => {
@@ -140,6 +141,21 @@ const navigate = useNavigate();
     if (user == null) {
       alert("Please login to book the hotels!!!");
       e.preventDefault();
+
+      let totalPrice = 0;
+
+      if (
+        booking.checkIn !== "0" &&
+  booking.checkOut !== "0" &&
+  booking.totalRoom !== 0 &&
+  booking.totalDay !== 0
+      ) { 
+       
+        
+        alert("Please fill in all the booking details.");
+        setTotal(0); // Assign zero to the total price
+    return;
+      }
     } else {
       const formData = new FormData();
       formData.append("userId", user.id);
@@ -164,7 +180,8 @@ const navigate = useNavigate();
         }); 
               
         navigate('/pay') 
- 
+
+    
     
     }
   };
@@ -176,11 +193,20 @@ const navigate = useNavigate();
   const navigateToAddReviewPage = () => {
     navigate("/hotel/" + hotelId + "/location/" + locationId + "/add/review");
   };
+
+  const checkInDate = new Date(booking.checkIn);
+  const checkOutDate = new Date(booking.checkOut);
+  const timeDifference = checkOutDate.getTime() - checkInDate.getTime();
+  const dateDifference = Math.ceil(timeDifference / (1000 * 60 * 60 * 24)); // Convert milliseconds to days
+
+  // Use the `dateDifference` variable as needed
+  console.log("Date difference:", dateDifference);
+
   return (
     <div className="container-fluid mb-5 text-color3">
       <div class="row">
         <div class="col-sm-3 mt-2">
-          <div class="card form-card border-color custom-bg">
+          <div class="image-border123">
             <HotelCarousel
               item={{
                 image1: hotel.image1,
@@ -202,8 +228,10 @@ const navigate = useNavigate();
               <div class="text-left mt-3">
                 <h3>Description :</h3>
               </div>
-              <h4 class="card-text">{hotel.description}</h4>
-            </div>
+           
+              <h5 class="card-text">{hotel.description}</h5>
+           
+              </div>
 
             <div class="card-footer custom-bg">
               <div className="d-flex justify-content-between">
@@ -229,31 +257,31 @@ const navigate = useNavigate();
               </div>
 
               <div>
-                <form class="row g-3" onSubmit={bookHotel}>
-                  <div class="col-auto">
-                    <label for="checkin">Check-in</label>
-                    <input
-                      type="date"
-                      class="form-control"
-                      id="checkin"
-                      name="checkIn"
-                      onChange={handleBookingInput}
-                      value={booking.checkIn}
-                      required
-                    />
-                  </div>
-                  <div class="col-auto">
-                    <label for="checkout">Check-out</label>
-                    <input
-                      type="date"
-                      class="form-control"
-                      id="checkout"
-                      name="checkOut"
-                      onChange={handleBookingInput}
-                      value={booking.checkOut}
-                      required
-                    />
-                  </div>
+                <form class="row g-3" onSubmit={bookHotel}> 
+                <div class="col-auto">
+          <label for="checkin">Check-in</label>
+          <input
+            type="date"
+            class="form-control"
+            id="checkin"
+            name="checkIn"
+            onChange={handleBookingInput}
+            value={booking.checkIn}
+            required
+          />
+        </div>
+        <div class="col-auto">
+          <label for="checkout">Check-out</label>
+          <input
+            type="date"
+            class="form-control"
+            id="checkout"
+            name="checkOut"
+            onChange={handleBookingInput}
+            value={booking.checkOut}
+            required
+          />
+        </div>
                   <div class="col-auto">
                     <label for="totalroom">Total Room</label>
                     <input
@@ -266,7 +294,9 @@ const navigate = useNavigate();
                       required
                     />
                   </div>
+                  <div></div>
                   <div class="col-auto">
+                  
                     <label for="totalDay">Total Days</label>
                     <input
                       type="number"
@@ -287,7 +317,11 @@ const navigate = useNavigate();
                       marginLeft: '280px',
                       marginTop: '-50px',
                             }}>
-  <Payment totalAmount={totalPrice} />
+                            
+<div style={{ marginLeft: "25px" }}>
+  <Payment totalAmount={totalPrice !== 0 ? totalPrice : 0} />
+</div>
+
 </div>
                     </div>
                     
@@ -300,7 +334,7 @@ const navigate = useNavigate();
                     <div>
                       
                     </div> <div className="d-flex justify-content-between">
-      <p style={{ position: 'absolute', bottom: '12px', left: '37%', transform: 'translateX(0%)' }}>
+      <p style={{ position: 'absolute', bottom: '12px', left: '40%', transform: 'translateX(0%)' }}>
         <span>  
         <div style={{ 
   backgroundColor: '#00D0D0',
@@ -312,7 +346,11 @@ const navigate = useNavigate();
 
         </span>
       </p>
-    </div>  </div> 
+    </div>  </div>   {!booking.checkIn || !booking.checkOut ? (
+    <div class="alert alert-warning" role="alert">
+      Please fill checkIn and checkOut dates.
+    </div>
+  ) : null}
                 </form>
               </div>
 
@@ -320,14 +358,16 @@ const navigate = useNavigate();
                 if (admin) {
                   console.log(admin);
                   return (
-                    <div>
-                      <input
-                        type="submit"
-                        className="btn custom-bg bg-color mb-3"
-                        value="Add Facilities"
-                        onClick={navigateToAddHotelFacility}
-                      />
-                    </div>
+                    <div style={{ width: '100px' }}>
+  <input
+    type="submit"
+    className="btn custom-bg bg-color mb-3"
+    value="Add Facilities"
+    onClick={navigateToAddHotelFacility}
+    style={{ width: '150%' }}
+  />
+</div>
+
                   );
                 }
               })()}
@@ -338,6 +378,7 @@ const navigate = useNavigate();
               className="btn custom-bg bg-color mb-3"
               value="Change Currency"
               onClick={currency}
+              style={{ width: "150px", fontWeight: "300"  }}
             />
           </div>
               {(() => {
@@ -345,14 +386,15 @@ const navigate = useNavigate();
                   console.log(user);
                   return (
                     <div>
-                      <input
-                        type="submit"
-                        className="btn custom-bg bg-color mb-3 text-color3"
-                        value="Add Review"
-                        onClick={navigateToAddReviewPage}
+  <input
+    type="submit"
+    className="btn custom-bg bg-color mb-3"
+    value="Add Review"
+    onClick={navigateToAddReviewPage}
+    style={{ width: "150px", fontWeight: "300" }}
+  />
+</div>
 
-                      />
-                    </div>
                     
                   );
                 }
@@ -380,7 +422,8 @@ const navigate = useNavigate();
 
       <div className="row mt-4 ">
         <div className="col-sm-12">
-          <h2>Other Hotels in {hotel.location.city} Location:</h2>
+          <h2>All Hotels in <span style={{ color: "#00D0D0", cursor: "default" }}>{hotel.location.city}</span>
+{' '}Location:</h2>
           <div className="row row-cols-1 row-cols-md-4 g-4">
             {hotels.map((h) => {
               return <HotelCard item={h} />;

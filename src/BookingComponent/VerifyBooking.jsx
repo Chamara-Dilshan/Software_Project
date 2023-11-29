@@ -79,6 +79,10 @@ const VerifyBooking = () => {
     });
   };
 
+  const currency = (e) => {
+    navigate("/currencyC");
+  };
+
   return (
     <div>
       <div className="mt-2 d-flex aligns-items-center justify-content-center text-color3">
@@ -200,13 +204,21 @@ const VerifyBooking = () => {
               </div>
 
               <div className="d-flex aligns-items-center justify-content-center">
-                <button
-                  type="submit"
-                  className="btn bg-color custom-bg-text col-md-4"
-                  onClick={updateHotelBookingStatus}
-                >
-                  Update Booking Hotel
-                </button>
+             <input
+  type="submit"
+  className="btn custom-bg bg-color mb-3"
+  value="Convert Currency"
+  onClick={currency}
+  style={{ marginLeft: "-25px", marginTop: "5px" }}
+/>
+<button
+  type="submit"
+  className="btn bg-color custom-bg-text col-md-4"
+  onClick={updateHotelBookingStatus}
+  style={{ marginLeft: "100px", fontSize: "larger" }}
+>
+  Update Booking Hotel
+</button>
               </div>
             </form>
           </div>

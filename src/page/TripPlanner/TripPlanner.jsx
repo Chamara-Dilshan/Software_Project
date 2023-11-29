@@ -15,19 +15,28 @@ import gll from './img/gll.png'
 import dld from './img/dld.png'
 import jya from './img/jya.png'
 import jfn from './img/jfn1.png'
-
+import bkr from './img/bkr.png'
+import rvn from './img/rvn.png'
+import dnh from './img/dnh.png'
+import snt from './img/snt.png'
+import dyl from './img/dyl.png'
 const TripPlanner = () => {
+
+
+  
   return (
-    <div className="text-color ms-5 me-5 mr-5 mt-3 text-color3">
+    <div className="text-color ms-5 me-5 mr-5 mt-3 text-color3" >
     <div className = "container1">
-    <h3> Listed Cultural Events</h3>
+    <div id="topic" class="scroll-effect">
+  <h3>Listed Cultural Events</h3>
+</div>
     <p>The cultural events that happend in Sri Lanka</p>
       <div className="pList">
       <div className="pListItem">
         <img
-          src={newyr2}
+          src={newyr2} 
           alt=""
-          className="pListImg"
+          className="pListImg" style={{ marginBottom: "10px" }}
         />
         <div className="pListTitles">
           <h1>Sinhala and Tamil New Year</h1>
@@ -44,7 +53,8 @@ Read more...
         <img
           src={thaip}
           alt=""
-          className="pListImg"
+          className="pListImg" 
+          style={{ marginBottom: "10px" }}
         />
         <div className="pListTitles">
           <h1>Thai pongal</h1>
@@ -60,7 +70,7 @@ Read more...
         <img
           src={asala}
           alt=""
-          className="pListImg"
+          className="pListImg" style={{ marginBottom: "10px" }}
         />
         <div className="pListTitles">
           <h1>Kandy Perahera</h1>
@@ -78,7 +88,7 @@ Read more...
         <img
           src={adam}
           alt=""
-          className="pListImg"
+          className="pListImg" style={{ marginBottom: "10px" }}
         />
         <div className="pListTitles">
           <h1>Adam's Peek</h1>
@@ -95,7 +105,7 @@ Read more...
         <img
           src={ktrgm}
           alt=""
-          className="pListImg"
+          className="pListImg" style={{ marginBottom: "10px" }}
         />
         <div className="pListTitles">
           <h1>Kataragama Perahera</h1>
@@ -119,7 +129,7 @@ Read more...
         <img
           src={vesk1}
           alt=""
-          className="pListImg"
+          className="pListImg" style={{ marginBottom: "10px" }}
         />
         <div className="pListTitles">
           <h1>Vesak</h1>
@@ -133,7 +143,7 @@ Read more...
         <img
           src={chrstms}
           alt=""
-          className="pListImg"
+          className="pListImg" style={{ marginBottom: "10px" }}
         />
         <div className="pListTitles">
           <h1>Christmas</h1>
@@ -147,7 +157,7 @@ Read more...
         <img
           src={rmsn}
           alt=""
-          className="pListImg"
+          className="pListImg" style={{ marginBottom: "10px" }}
         />
         <div className="pListTitles">
           <h1>Ramasan</h1>
@@ -161,7 +171,7 @@ Read more...
         <img
           src={poson}
           alt=""
-          className="pListImg"
+          className="pListImg" style={{ marginBottom: "10px" }}
         />
         <div className="pListTitles">
           <h1>Poson</h1>
@@ -175,7 +185,7 @@ Read more...
         <img
           src={nllr}
           alt=""
-          className="pListImg"
+          className="pListImg" style={{ marginBottom: "10px" }}
         />
         <div className="pListTitles">
           <h1>Nallur Festival</h1>
@@ -195,7 +205,7 @@ Read more...
         <img
           src={sgry}
           alt=""
-          className="pListImg"
+          className="pListImg" style={{ marginBottom: "10px" }}
         />
         <div className="pListTitles">
           <h1>Sigiriya</h1>
@@ -212,7 +222,7 @@ Read more...
         <img
           src={gll}
           alt=""
-          className="pListImg"
+          className="pListImg" style={{ marginBottom: "10px" }}
         />
         <div className="pListTitles">
           <h1>Galle fort</h1>
@@ -228,7 +238,7 @@ Read more...
         <img
           src={dld}
           alt=""
-          className="pListImg"
+          className="pListImg" style={{ marginBottom: "10px" }}
         />
         <div className="pListTitles">
           <h1>Dalada Maligaya</h1>
@@ -246,7 +256,7 @@ Read more...
         <img
           src={jya}
           alt=""
-          className="pListImg"
+          className="pListImg" style={{ marginBottom: "10px" }}
         />
         <div className="pListTitles">
           <h1>Jaya Sri Maha bodhiya</h1>
@@ -263,7 +273,7 @@ Read more...
         <img
           src={jfn}
           alt=""
-          className="pListImg"
+          className="pListImg" style={{ marginBottom: "10px" }}
         />
         <div className="pListTitles">
           <h1>Jaffna fort</h1>
@@ -274,7 +284,101 @@ Read more...
         </div>
       </div>
     </div>
+
+
+    <div className="container1" style={{ width: "1070px" }}>
+    <h3> Listed Most Famous Waterfalls Places</h3>
+    <p>The most famous Waterfalls in Sri Lanka</p>
+      <div className="pList">
+      <div className="pListItem"> 
+        <img
+          src={bkr}
+          alt=""
+          className="pListImg" style={{ marginBottom: "10px" }}
+        />
+        <div className="pListTitles">
+          <h1>Baker's Falls</h1>
+          <h2>Hortan place</h2>
+          <a href="https://www.epicsrilankaholidays.com/things-to-do/horton-plains/bakers-falls.html" target="_blank" rel="noopener noreferrer">
+Read more...
+</a>
+        </div>
+      </div>
+
+
+
+      <div className="pListItem">
+        <img
+          src={rvn}
+          alt=""
+          className="pListImg" style={{ marginBottom: "10px" }}
+        />
+        <div className="pListTitles">
+          <h1>Rawana Falls</h1>
+          <h2>Ella</h2>
+          <a href="https://www.lovesrilanka.org/ravana-falls/" target="_blank" rel="noopener noreferrer">
+Read more...
+</a>
+        </div>
+      </div>
+
+
+      <div className="pListItem">
+        <img
+          src={dnh}
+          alt=""
+          className="pListImg" style={{ marginBottom: "10px" }}
+        />
+        <div className="pListTitles">
+          <h1>Dunhida Falls</h1>
+          <h2>Badulla</h2>
+          <a href="https://travelwithuma.com/waterfall/dunhinda-falls/" target="_blank" rel="noopener noreferrer">
+Read more...
+</a>
+        </div>
+      </div>
+
+
+
+     
+      <div className="pListItem">
+        <img
+          src={snt}
+          alt=""
+          className="pListImg" style={{ marginBottom: "10px" }}
+        />
+        <div className="pListTitles">
+          <h1>St. Clair's Falls</h1>
+          <h2>Kothmale</h2>
+          <a href="https://miraclesrilanka.com/st-clairs-falls/" target="_blank" rel="noopener noreferrer">
+Read more...
+</a>
+        </div>
+      </div>
+
+
+
+      <div className="pListItem">
+        <img
+          src={dyl}
+          alt=""
+          className="pListImg" style={{ marginBottom: "10px" }}
+        />
+        <div className="pListTitles">
+          <h1>Diyaluma Falls</h1>
+          <h2>Ella</h2>
+          <a href="https://srilankadriverguide.com/diyaluma-falls/" target="_blank" rel="noopener noreferrer">
+Read more...
+</a>
+        </div>
+      </div>
     </div>
+    </div>
+    
+    </div>
+
+
+  
 
 
 

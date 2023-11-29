@@ -53,6 +53,10 @@ const CurrencyConverter = () => {
     setConvertedAmount(amount * exchangeRates[e.target.value]);
   };
 
+  useEffect(() => {
+    setConvertedAmount(amount * exchangeRates[selectedCurrency]);
+  }, [amount, selectedCurrency, exchangeRates]);
+
   return (
     <div>
       <div
@@ -92,13 +96,13 @@ const CurrencyConverter = () => {
           />
         </div>
         <div className="text-center" style={{ marginBottom: '10px' }}>
-          <label style={{ marginBottom: '10px'  }}>From:</label>
+          <label style={{ marginBottom: '10px' }}>From:</label>
           <span
             style={{
               color: 'white',
               backgroundColor: '#00D0D0',
               padding: '5px',
-              cursor:'pointer'
+              cursor: 'pointer',
             }}
           >
             LKR (Sri Lankan Rupee)
@@ -108,7 +112,7 @@ const CurrencyConverter = () => {
         <div className="card col-md-6 offset-md-3 offset-md-3">
           <label>To:</label>{' '}
           <h5 style={{ marginBottom: '10px' }}>
-            Choose currency you need to convert
+            Choose the currency you need to convert
           </h5>
           <select
             value={selectedCurrency}
@@ -143,7 +147,7 @@ const CurrencyConverter = () => {
           <input
             id="convertedAmount"
             type="number"
-            value={convertedAmount}
+            value={(convertedAmount)}
             readOnly
             style={{
               width: '300px',
@@ -172,25 +176,31 @@ const CurrencyConverter = () => {
         >
           Back
         </button>
-       <div 
+        <div
           style={{
             width: 'auto',
             marginLeft: '480px',
             padding: '5px',
             fontSize: '20px',
             height: '50px',
-            marginTop: '5px',
+            marginTop: '10px', // Updated from marginTop: '5px'
+            marginBottom: '20px',
             backgroundColor: '#00D0D0',
             border: 'none',
+            borderRadius: '15px',
             color: 'white',
             fontWeight: 'bold',
             cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
           }}
         >
-          Rate: 1 USD = {(1 / usdToLkrRate).toFixed(3)} LKR
+          Rate: 1 USD = {((1 / usdToLkrRate + 3)).toFixed(3)} LKR
         </div>
       </div>
-   <div><Footer></Footer></div>
+      <div>
+        <Footer />
+      </div>
     </div>
   );
 };

@@ -17,19 +17,11 @@
   }
   
   .logo{
-    font-family: 'Montserrat';
-    font-style: normal;
-    font-weight: 800;
-    font-size: 28px;
-    line-height: 34px;
     color: #00D0D0;
-    font-family: 'Montserrat';
-    font-style: normal;
-    font-weight: 800;
-    font-size: 28px;
-    line-height: 34px;
-    color: #00D0D0;
-    cursor:default;
+    font-size: 32px;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    cursor: default;
   }
   
   .navButton{

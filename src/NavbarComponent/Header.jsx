@@ -78,7 +78,8 @@ const Header = () => {
                   className="nav-link active"
                   aria-current="page"
                 >
-                  <b className="text-color5">Trip Planner |</b>
+                         <b className="text-color5"><i>Trip Planner |</i></b>
+
                 </Link>
               </li>
 
@@ -88,7 +89,8 @@ const Header = () => {
                   className="nav-link active"
                   aria-current="page"
                 >
-                  <b className="text-color5">Contact Us |</b>
+                         <b className="text-color5"><i>Contact Us |</i></b>
+
                 </Link>
               </li>
             </ul>

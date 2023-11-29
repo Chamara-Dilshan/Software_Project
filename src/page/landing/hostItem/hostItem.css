@@ -8,6 +8,7 @@
     align-items: center;
     gap: 20px;
     padding: 50px;
+    cursor: default;
   }
   
   .hostInputContainer>input{

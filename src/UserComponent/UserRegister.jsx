@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
-import "react-toastify/dist/ReactToastify.css";
-import { ToastContainer, toast } from "react-toastify";
+import React, { useState, useEffect } from "react";
+import { toast, ToastContainer } from "react-toastify";
 import axios from "axios";
+import "react-toastify/dist/ReactToastify.css";
 
 const UserRegister = () => {
   const [user, setUser] = useState({
@@ -18,15 +18,16 @@ const UserRegister = () => {
     sex: "",
   });
 
-  if (document.URL.indexOf("admin") !== -1) {
-    user.role = "Admin";
-  } else if (document.URL.indexOf("hotel") !== -1) {
-    user.role = "Hotel Admin";
-  } else if (document.URL.indexOf("customer") !== -1) {
-    user.role = "Customer";
-  }
-
-  console.log("ROLE FECTHED : " + user.role);
+  // Determine the user role based on the URL
+  useEffect(() => {
+    if (document.URL.indexOf("admin") !== -1) {
+      setUser((prevUser) => ({ ...prevUser, role: "Admin" }));
+    } else if (document.URL.indexOf("hotel") !== -1) {
+      setUser((prevUser) => ({ ...prevUser, role: "Hotel" }));
+    } else if (document.URL.indexOf("customer") !== -1) {
+      setUser((prevUser) => ({ ...prevUser, role: "Customer" }));
+    }
+  }, []);
 
   const handleUserInput = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
@@ -50,39 +51,105 @@ const UserRegister = () => {
     getAllGenders();
   }, []);
 
+  const calculateAge = (dob) => {
+    const currentDate = new Date();
+    const selectedDate = new Date(dob);
+    let age = currentDate.getFullYear() - selectedDate.getFullYear();
+
+    const monthDifference = currentDate.getMonth() - selectedDate.getMonth();
+    if (
+      monthDifference < 0 ||
+      (monthDifference === 0 && currentDate.getDate() < selectedDate.getDate())
+    ) {
+      age--;
+    }
+
+    setUser({ ...user, age });
+  };
+
+  const [registrationSuccess, setRegistrationSuccess] = useState(false);
+  const [submitDisabled, setSubmitDisabled] = useState(false);
+  const [alreadyRegistered, setAlreadyRegistered] = useState(false);
+
   const saveUser = (event) => {
     event.preventDefault();
-    fetch("http://localhost:8080/api/user/register", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(user),
-    }).then((result) => {
-      toast.success("Registered Successfully!!!", {
-        position: "top-center",
-        autoClose: 1000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
 
-      result
-        .json()
-        .then((res) => {
-          console.log("response", res);
-        })
-        .catch((error) => {
-          console.log(error);
+    if (alreadyRegistered) {
+      toast.error("Already saved.");
+      return;
+    }
+
+    if (validateFields()) {
+      setSubmitDisabled(true);
+
+      fetch("http://localhost:8080/api/user/register", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(user),
+      })
+        .then((result) => {
+          toast.success("Registered Successfully!!!", {
+            position: "top-center",
+            autoClose: 1000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+
+          result
+            .json()
+            .then((res) => {
+              console.log("response", res);
+              setRegistrationSuccess(true);
+              setAlreadyRegistered(true);
+            })
+            .catch((error) => {
+              console.log(error);
+            })
+            .finally(() => {
+              setSubmitDisabled(false);
+            });
         });
-    });
+    }
+  };
+
+  const validateFields = () => {
+    if (
+      user.firstName.trim() === "" ||
+      user.lastName.trim() === "" ||
+      user.emailId.trim() === "" ||
+      user.password.trim() === "" ||
+      user.contact.trim() === "" ||
+      user.street.trim() === "" ||
+      user.city.trim() === "" ||
+      user.pincode.trim() === "" ||
+      user.sex === "0"
+    ) {
+      toast.error("Please fill all the empty fields.");
+      return false;
+    }
+
+    if (user.password.length < 4) {
+      toast.error("Password should contain at least 4 characters.");
+      return false;
+    }
+
+    return true;
   };
 
   return (
     <div>
+      {registrationSuccess && (
+        <div className="alert alert-success text-center">
+          Profile has been created successfully. Please log in.
+        </div>
+      )}
+      
       <div className="mt-2 d-flex aligns-items-center justify-content-center ms-2 me-2 mb-2">
         <div
           className="card form-card border-color text-color custom-bg"
@@ -93,9 +160,9 @@ const UserRegister = () => {
           </div>
           <div className="card-body">
             <form className="row g-3" onSubmit={saveUser}>
-              <div className="col-md-6 mb-3 text-color3">
-                <label htmlFor="title" className="form-label">
-                  <b> First Name</b>
+            <div className="col-md-6 mb-3 text-color">
+                <label htmlFor="firstName" className="form-label">
+                  <b>First Name</b>
                 </label>
                 <input
                   type="text"
@@ -106,8 +173,8 @@ const UserRegister = () => {
                   value={user.firstName}
                 />
               </div>
-              <div className="col-md-6 mb-3 text-color3">
-                <label htmlFor="description" className="form-label">
+              <div className="col-md-6 mb-3 text-color">
+                <label htmlFor="lastName" className="form-label">
                   <b>Last Name</b>
                 </label>
                 <input
@@ -120,9 +187,11 @@ const UserRegister = () => {
                 />
               </div>
 
-              <div className="col-md-6 mb-3 text-color3">
+              <div className="col-md-6 mb-3 text-color">
                 <b>
-                  <label className="form-label">Email Id</label>
+                  <label htmlFor="emailId" className="form-label">
+                    Email Id
+                  </label>
                 </b>
                 <input
                   type="email"
@@ -134,8 +203,8 @@ const UserRegister = () => {
                 />
               </div>
 
-              <div className="col-md-6 mb-3 text-color3">
-                <label htmlFor="quantity" className="form-label">
+              <div className="col-md-6 mb-3">
+                <label htmlFor="password" className="form-label">
                   <b>Password</b>
                 </label>
                 <input
@@ -148,24 +217,26 @@ const UserRegister = () => {
                 />
               </div>
 
-              <div className="col-md-6 mb-3 text-color3">
+              <div className="col-md-6 mb-3 text-color">
                 <label htmlFor="sex" className="form-label">
                   <b>User Gender</b>
                 </label>
                 <select
-                  onChange={handleUserInput}
                   className="form-control"
                   name="sex"
+                  onChange={handleUserInput}
+                  value={user.sex}
                 >
                   <option value="0">Select Gender</option>
-
-                  {genders.map((gender) => {
-                    return <option value={gender}> {gender} </option>;
-                  })}
+                  {genders.map((gender) => (
+                    <option key={gender} value={gender}>
+                      {gender}
+                    </option>
+                  ))}
                 </select>
               </div>
 
-              <div className="col-md-6 mb-3 text-color3">
+              <div className="col-md-6 mb-3">
                 <label htmlFor="contact" className="form-label">
                   <b>Contact No</b>
                 </label>
@@ -179,23 +250,22 @@ const UserRegister = () => {
                 />
               </div>
 
-              <div className="col-md-6 mb-3 text-color3">
-                <label htmlFor="contact" className="form-label">
-                  <b>Age</b>
+              <div className="col-md-6 mb-3">
+                <label htmlFor="dob" className="form-label">
+                  <b>Date of Birth</b>
                 </label>
                 <input
-                  type="number"
+                  type="date"
                   className="form-control"
-                  id="age"
-                  name="age"
-                  onChange={handleUserInput}
-                  value={user.age}
+                  id="dob"
+                  name="dob"
+                  onChange={(e) => calculateAge(e.target.value)}
                 />
               </div>
 
-              <div className="col-md-6 mb-3 text-color3">
-                <label htmlFor="description" className="form-label">
-                  <b> Street</b>
+              <div className="col-md-6 mb-3">
+                <label htmlFor="street" className="form-label">
+                  <b>Street</b>
                 </label>
                 <textarea
                   className="form-control"
@@ -207,8 +277,8 @@ const UserRegister = () => {
                 />
               </div>
 
-              <div className="col-md-6 mb-3 text-color3">
-                <label htmlFor="price" className="form-label">
+              <div className="col-md-6 mb-3">
+                <label htmlFor="city" className="form-label">
                   <b>City</b>
                 </label>
                 <input
@@ -221,9 +291,9 @@ const UserRegister = () => {
                 />
               </div>
 
-              <div className="col-md-6 mb-3 text-color3">
+              <div className="col-md-6 mb-3">
                 <label htmlFor="pincode" className="form-label">
-                  <b>Pincode</b>
+                  <b>ZipCode</b>
                 </label>
                 <input
                   type="number"
@@ -240,13 +310,14 @@ const UserRegister = () => {
                   type="submit"
                   className="btn bg-color custom-bg-text col-md-3"
                   value="Register User"
+                  disabled={submitDisabled}
                 />
               </div>
-              <ToastContainer />
             </form>
           </div>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };

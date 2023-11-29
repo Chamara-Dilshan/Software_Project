@@ -48,14 +48,14 @@ const Home = () => {
         <h1
           className={`homeTitle1 ${isMouseOver1 ? "expandWidth1" : ""}`}
           onMouseEnter={handleMouseEnter1}
-          onMouseLeave={handleMouseLeave1}
+          onMouseLeave={handleMouseLeave1}  style={{ fontWeight: 600 }}
         >
-          Browse by Property Location...
+          Browse by Property Location... 
         </h1>
         <Featured />
 
         <div className="placeLoad">
-          <Link to="/home">
+         <Link Link to="/home">
             <button className="loadBtn">Load more</button>
           </Link>
         </div>
@@ -63,7 +63,7 @@ const Home = () => {
         <h1
           className={`homeTitle2 ${isMouseOver2 ? "expandWidth2" : ""}`}
           onMouseEnter={handleMouseEnter2}
-          onMouseLeave={handleMouseLeave2}
+          onMouseLeave={handleMouseLeave2} style={{ fontWeight: 600 }}
         >
           Browse by Property Type...
         </h1>
@@ -79,9 +79,9 @@ const Home = () => {
         <h1
           className={`homeTitle3 ${isMouseOver3 ? "expandWidth3" : ""}`}
           onMouseEnter={handleMouseEnter3}
-          onMouseLeave={handleMouseLeave3}
+          onMouseLeave={handleMouseLeave3} style={{ fontWeight: 600 }}
         >
-          Browse by Property Reviews...
+          Browse by Property Reviews... 
         </h1>
         <FeaturedProperties />
 

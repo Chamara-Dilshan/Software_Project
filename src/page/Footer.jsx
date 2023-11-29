@@ -6,7 +6,7 @@ const Footer = () => {
       <div
         className="container my-5"
         style={{
-          border: "none",
+          border: "none", cursor: "default",
         }}
       >
         <footer className="text-center text-lg-start text-color3">
